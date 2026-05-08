@@ -1,0 +1,15 @@
+# env files — never commit API keys
+.env
+.env.*
+*.env
+
+# local compose overrides
+compose.override.yml
+
+# macOS
+.DS_Store
+
+# editors
+.idea/
+.vscode/
+*.swp

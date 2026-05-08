@@ -1,0 +1,21 @@
+services:
+  agentbox:
+    image: agentbox:latest
+    stdin_open: true
+    tty: true
+    environment:
+      - AGENT=${AGENT:-pi}
+      - SNAPSHOT=${SNAPSHOT:-1}
+    cap_drop:
+      - ALL
+    mem_limit: ${MEMORY:-8g}
+    pids_limit: ${PIDS:-512}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - ${HOME}/.agentbox/pi:/home/user/.pi
+      - ${HOME}/.agentbox/opencode/config:/home/user/.config/opencode
+      - ${HOME}/.agentbox/opencode/local:/home/user/.local/share/opencode
+      - .:/workspace/${DIRNAME}
+      # Mount your project directories here, one entry per line:
+      # - ../myproject:/workspace/myproject
