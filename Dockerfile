@@ -65,7 +65,7 @@ COPY --from=builder --chown=user:user /home/user /home/user
 # ── Stage 3: agents ───────────────────────────────────────────────────────────
 FROM base
 
-RUN npm install -g @mariozechner/pi-coding-agent opencode-ai && npm cache clean --force
+RUN npm install -g @earendil-works/pi-coding-agent opencode-ai && npm cache clean --force
 
 ENV AGENT=pi
 
