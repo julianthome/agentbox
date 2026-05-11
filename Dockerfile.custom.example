@@ -1,0 +1,13 @@
+# Copy this file to Dockerfile.custom and add your packages.
+# It is layered on top of agentbox:latest by `make build` and retags as agentbox:latest.
+
+FROM agentbox:latest
+
+USER root
+
+# Examples — uncomment and adapt:
+# RUN apk add --no-cache htop httpie
+# RUN pip3 install --no-cache-dir requests pandas
+# RUN npm install -g typescript prettier
+
+USER user
