@@ -60,6 +60,27 @@ make shell                # drop into a zsh shell without starting an agent
 
 Each run starts a tmux session with two windows — one running the agent, one with a plain shell. Agent config and auth are persisted to `~/.agentbox/` on the host so settings survive between runs.
 
+## Custom packages
+
+To add your own packages on top of the base image, copy the template and edit it:
+
+```sh
+cp Dockerfile.custom.example Dockerfile.custom
+```
+
+Add your `apk`, `pip`, or `npm` installs:
+
+```dockerfile
+FROM agentbox:latest
+USER root
+RUN apk add --no-cache htop httpie
+RUN pip3 install --no-cache-dir requests
+RUN npm install -g typescript
+USER user
+```
+
+`make build` detects `Dockerfile.custom` automatically, layers it on top of the freshly built base, and retags the result as `agentbox:latest`. The file is gitignored so your customisations stay local.
+
 ## Session branching
 
 Before the agent starts, agentbox creates a timestamped git branch (`agentbox/<branch>/<timestamp>`) in each mounted git repository. This lets you review exactly what the agent changed and discard or merge at will. Set `SNAPSHOT=0` to disable.

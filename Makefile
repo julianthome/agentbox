@@ -25,6 +25,10 @@ help: ## Show this help
 
 build: ## Build the Docker image (keeps last KEEP builds)
 	DOCKER_BUILDKIT=1 docker build --no-cache --pull -t $(IMAGE):latest -t $(IMAGE):$(shell date -u +%Y%m%d-%H%M%S) .
+	@if [ -f Dockerfile.custom ]; then \
+		echo "Applying Dockerfile.custom"; \
+		DOCKER_BUILDKIT=1 docker build -t $(IMAGE):latest -f Dockerfile.custom .; \
+	fi
 	@docker images $(IMAGE) --format '{{.Tag}}' \
 		| grep -v latest \
 		| sort -r \

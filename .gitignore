@@ -6,6 +6,9 @@
 # local compose overrides
 compose.override.yml
 
+# user-supplied custom package layer
+Dockerfile.custom
+
 # macOS
 .DS_Store
 
